@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": ["pages"],
+  "properties": {
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "anyOf": [
+            {
+              "type": "object",
+              "required": ["subtitle", "pageName", "filePath"],
+              "additionalProperties": false,
+              "properties": {
+                "subtitle": {"type": "string", "description": "Page subtitle"},
+                "pageName": {"type": "string", "description": "Page name"},
+                "filePath": {"type": "string", "description": "File to copy from your repository. For example, docs/installation.md"}
+              }
+            },
+            {
+              "type": "object",
+              "required": ["subtitle", "apiPath"],
+              "additionalProperties": false,
+              "properties": {
+                "subtitle": {"type": "string", "description": "Page subtitle"},
+                "apiPath": {"type": "string", "description": "Path of a created API page, for example class-myclass/function-myfunc"}
+              }
+            },
+            {
+              "type": "object",
+              "required": ["subtitle", "pageName", "url"],
+              "additionalProperties": false,
+              "properties": {
+                "subtitle": {"type": "string", "description": "Page subtitle"},
+                "pageName": {"type": "string", "description": "Page name"},
+                "url": {"type": "string", "description": "full url of where this page will link to."}
+              }
+            }
+        ]
+      }
+    },
+    "autodocSettings": {
+      "type": "object",
+      "required": ["language"],
+      "additionalProperties": false,
+      "properties": {
+        "language": {"type": "string", "enum": ["cpp", "c", "csharp", "java", "python"], "description": "Main language of your code"},
+        "INPUT": {"type": "string", "description": "Limit auto-documentation to only these files and directories. Files and directories are relative to your root folder. Files and folders are separated by space. If left blank, input everything."},
+        "EXCLUDE": {"type": "string","description": "Exclude the following files and directories from being auto-documented. Files and directories are relative to your root folder. Files and folders are separated by space. If blank, exclude none."},
+        "EXCLUDE_PATTERNS": {"type": "string"},
+        "EXAMPLE_PATH": {"type": "string"},
+        "includeApi": {"type": "array","items": {"type": "string"}, "description":"Display only these APIs as your public API"},
+        "excludeApi": {"type": "array","items": {"type": "string"}, "description":"Exclude these APIs from being displayed in your public API"},
+        "documentSingleUnderscore": {"type": "boolean", "description": "If true, names that start with a single underscore (e.g. _my-function) will be removed from your API. A convention in Python."},
+        "documentProtected": {"type": "boolean", "description": "Document protected methods."},
+        "FILE_PATTERNS": {"type": "string"},
+        "OPTIMIZE_OUTPUT_FOR_C": {"type":"string", "enum": ["YES", "NO"], "description": "Should be YES only for C - optimizes the output of the auto-documentation."},
+        "OPTIMIZE_OUTPUT_FOR_JAVA": {"type":"string", "enum": ["YES", "NO"], "description": "Should be YES for both JAVA and PYTHON - optimizes the output of the auto-documentation."},
+        "EXTENSION_MAPPING": {"type": "string"},
+        "ENABLE_PREPROCESSING": {"type": "string", "enum": ["YES", "NO"]},
+        "MACRO_EXPANSION": {"type": "string", "enum": ["YES", "NO"]},
+        "EXPAND_ONLY_PREDEF": {"type": "string", "enum": ["YES", "NO"]},
+        "SEARCH_INCLUDES": {"type": "string", "enum": ["YES", "NO"]},
+        "INCLUDE_PATH": {"type": "string"},
+        "INCLUDE_FILE_PATTERNS": {"type": "string"},
+        "PREDEFINED": {"type": "string"},
+        "EXPAND_AS_DEFINED": {"type": "string"},
+        "SKIP_FUNCTION_MACROS": {"type": "string", "enum": ["YES", "NO"]}
+      }
+    }
+  }
+}
